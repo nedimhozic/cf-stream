@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Cloudflare Stream WHIP/WHEP Demo</title>
+  </head>
+  <body>
+    <!-- SECTION: Local Stream Preview (WHIP Publisher) -->
+    <h4>Broadcasting video using WHIP</h4>
+    <h5>(local mirror)</h5>
+    <!-- This video element will show your camera feed while you’re streaming -->
+    <video id="input-video" autoplay muted></video>
+
+    <!-- SECTION: Remote Stream Playback (WHEP Viewer) -->
+    <h4>Playing video using WHEP</h4>
+    <h5>(remote content)</h5>
+    <!-- This video element will play the incoming stream from the server -->
+    <video id="remote-video" controls autoplay muted></video>
+
+    <!-- Load and run JavaScript modules -->
+    <script type="module">
+      // Import the streaming service helpers
+      import { startWebRTCStream } from "./whipService.js"; // WHIP = stream to server
+      import { startWebRTCPlayback } from "./whepService.js"; // WHEP = play from server
+
+      // URL of your Cloudflare Stream WHIP endpoint (used for publishing)
+      const whipUrl =
+        "https://customer-{customerId}.cloudflarestream.com/{liveInputId_longer}/webRTC/publish";
+
+      // URL of your Cloudflare Stream WHEP endpoint (used for playback)
+      const whepUrl =
+        "https://customer-{customerId}.cloudflarestream.com/{liveInputId}/webRTC/play";
+
+      // Grab video elements from the page
+      const inputVideoElement = document.getElementById("input-video");
+      const remoteVideoElement = document.getElementById("remote-video");
+
+      // Initialize WHIP stream to start broadcasting the local webcam/mic feed
+      // `stop` is a function you can later call to stop the stream and release resources
+      const { stop } = await startWebRTCStream(whipUrl, inputVideoElement);
+
+      // Initialize WHEP stream to start playing the remote video feed
+      await startWebRTCPlayback(whepUrl, remoteVideoElement);
+
+      // Optionally, you could add a button to stop the stream like this:
+      // document.getElementById('stop-button').addEventListener('click', stop);
+    </script>
+  </body>
+</html>
