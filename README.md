@@ -79,7 +79,7 @@ serve .
 
 ## 📚 Resources
 
-- [Cloudflare Stream: Live Input](https://developers.cloudflare.com/stream/live-streaming/webrtc/)
+- [Cloudflare Stream: Live Input](https://developers.cloudflare.com/stream/stream-live/start-stream-live/)
 - [WHIP/WHEP IETF Drafts](https://www.ietf.org/archive/id/draft-ietf-wish-whip-01.html)
 - [WebRTC Guide on MDN](https://developer.mozilla.org/en-US/docs/Web/API/WebRTC_API)
 
